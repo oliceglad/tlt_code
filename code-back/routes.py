@@ -8,3 +8,5 @@ api = Api(app)
 class GetFile(Resource):
     def post(self):
         return {'data': request.args}
+
+api.add_resource(GetFile, '/file')
