@@ -7,6 +7,7 @@ const instance = axios.create({
 
 export const mainAPI = {
     postVideo(obj) {
+        console.log(obj)
         return instance.post('/file', obj, {
             headers: {
                 'Content-Type': 'multipart/form-data'

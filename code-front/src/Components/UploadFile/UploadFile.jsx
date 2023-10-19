@@ -7,7 +7,7 @@ import { postDataFile } from "../../redux/main-reducer";
 const UploadFile = ({ data, postDataFile }) => {
     const [drag, setDrag] = useState(false)
     const [files, setFiles] = useState([])
-    const [formData, setFormData] = useState(new FormData())
+    const [form, setFormData] = useState(null)
 
     const dragStartHandler = (e) => {
         e.preventDefault()
@@ -25,21 +25,14 @@ const UploadFile = ({ data, postDataFile }) => {
         let filesMap = [...e.dataTransfer.files]
         if (filesMap[0].name.toLowerCase().indexOf('.jpg') !== -1 || filesMap[0].name.toLowerCase().indexOf('.mp4') !== -1 || filesMap[0].name.toLowerCase().indexOf('.png') !== -1) {
             setFiles(filesMap)
-            const formData = new FormData()
-            formData.append('file', files[0])
+            let formData = new FormData()
+            formData.append('file', [...e.dataTransfer.files][0])
             setFormData(formData)
         } else {
             alert('Загрузить можно только видео или фото')
         }
         setDrag(false)
     }
-
-    const onClickHandler = () => {
-        postDataFile(formData)
-        console.log(formData)
-    }
-
-    console.log(data)
 
     return (
         <div className={s.uploadFile}>
@@ -66,7 +59,7 @@ const UploadFile = ({ data, postDataFile }) => {
                         : 'Файл не загружен'
                     }
                 </div>
-                <button className={s.resultButton} disabled={files.length > 0 ? false : true} onClick={() => onClickHandler()}>
+                <button className={s.resultButton} disabled={files.length > 0 ? false : true} onClick={() => postDataFile(form)}>
                     Рассчитать
                 </button>
             </div>
