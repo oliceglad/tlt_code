@@ -8,5 +8,3 @@ class CalcVolume:
     @staticmethod
     def calc_volume_stone(form):
         return calc_formula(300, 500)
-
-print(CalcVolume.calc_volume_stone({}))
