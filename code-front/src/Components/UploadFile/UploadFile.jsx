@@ -21,10 +21,15 @@ const UploadFile = ({ data, postDataFile }) => {
 
     const onDropHandler = (e) => {
         e.preventDefault()
-        setFiles([...e.dataTransfer.files])
-        const formData = new FormData()
-        formData.append('file', files[0])
-        console.log(formData)
+        let filesMap = [...e.dataTransfer.files]
+        if (filesMap[0].name.indexOf('.JPG') !== -1 || filesMap[0].name.indexOf('.MP4') !== -1) {
+            setFiles(filesMap)
+            const formData = new FormData()
+            formData.append('file', files[0])
+            console.log(formData)
+        } else {
+            alert('Загрузить можно только видео или фото')
+        }
         setDrag(false)
     }
 
@@ -54,11 +59,11 @@ const UploadFile = ({ data, postDataFile }) => {
 
                 <div style={{ marginTop: 20 }}>
                     {files.length > 0
-                        ? 'Файл загружен'
+                        ? files[0].name
                         : 'Файл не загружен'
                     }
                 </div>
-                <button className={s.resultButton} disabled = {files.length > 0 ? false : true}>
+                <button className={s.resultButton} disabled={files.length > 0 ? false : true}>
                     Рассчитать
                 </button>
             </div>
@@ -66,7 +71,7 @@ const UploadFile = ({ data, postDataFile }) => {
 
             <div className={s.resultText}>
                 Объем щебня:
-                <div> <b style={{color: 'green'}}>[</b>{data.result} (м3)<b style={{color: 'green'}}>]</b></div>
+                <div> <b style={{ color: 'green' }}>[</b>{data.result} см3<b style={{ color: 'green' }}>]</b></div>
             </div>
         </div>
     )
