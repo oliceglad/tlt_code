@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import s from './upload.module.scss'
 import { connect } from 'react-redux';
-import { setDataFile, postDataFile } from "../../redux/main-reducer";
+import { postDataFile } from "../../redux/main-reducer";
 
 
-const UploadFile = ({form , setDataFile, postDataFile}) => {
+const UploadFile = ({ data, postDataFile }) => {
     const [drag, setDrag] = useState(false)
     const [files, setFiles] = useState([])
 
@@ -25,40 +25,55 @@ const UploadFile = ({form , setDataFile, postDataFile}) => {
         const formData = new FormData()
         formData.append('file', files[0])
         console.log(formData)
-        setDataFile({'file': files[0]})
-        console.log(form)
         setDrag(false)
     }
 
     const onClickHandler = (e) => {
-        return 
+        return
     }
 
 
     return (
         <div className={s.uploadFile}>
+            <div>
+                {drag
+                    ? <div
+                        className={s.dragArea}
+                        onDragStart={e => dragStartHandler(e)}
+                        onDragLeave={e => dragLeaveHandler(e)}
+                        onDragOver={e => dragStartHandler(e)}
+                        onDrop={e => onDropHandler(e)}
+                    >Отпустите файл, чтобы загрузить</div>
+                    : <div
+                        className={s.dragArea}
+                        onDragStart={e => dragStartHandler(e)}
+                        onDragLeave={e => dragLeaveHandler(e)}
+                        onDragOver={e => dragStartHandler(e)}
+                    >Перетащите файл, чтобы загрузить</div>
+                }
 
-            {drag
-                ? <div
-                    className={s.dragArea}
-                    onDragStart={e => dragStartHandler(e)}
-                    onDragLeave={e => dragLeaveHandler(e)}
-                    onDragOver={e => dragStartHandler(e)}
-                    onDrop={e => onDropHandler(e)}
-                >Отпустите файлы, чтобы загрузить их</div>
-                : <div
-                    className={s.dragArea}
-                    onDragStart={e => dragStartHandler(e)}
-                    onDragLeave={e => dragLeaveHandler(e)}
-                    onDragOver={e => dragStartHandler(e)}
-                >Перетащите файлы, чтобы загрузить их</div>
-            }
+                <div style={{ marginTop: 20 }}>
+                    {files.length > 0
+                        ? 'Файл загружен'
+                        : 'Файл не загружен'
+                    }
+                </div>
+                <button className={s.resultButton} disabled = {files.length > 0 ? false : true}>
+                    Рассчитать
+                </button>
+            </div>
+
+
+            <div className={s.resultText}>
+                Объем щебня:
+                <div> <b style={{color: 'green'}}>[</b>{data.result} (м3)<b style={{color: 'green'}}>]</b></div>
+            </div>
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    form: state.main.form
+    data: state.main.data
 })
 
-export const UploadFileContainer = connect(mapStateToProps, { setDataFile, postDataFile })(UploadFile)
+export const UploadFileContainer = connect(mapStateToProps, { postDataFile })(UploadFile)

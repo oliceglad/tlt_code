@@ -1,16 +1,61 @@
 .uploadFile {
-    position: relative;
-    width: 50%;
-    min-height: 500px;
-    border: 2px solid green;
+    display: flex;
+    justify-content: space-around;
+    max-width: 1920px;
     color: white;
+
+    @media (max-width: 850px) {
+        justify-content: end;
+        flex-direction: column;
+    }
+}
+
+.result {
+    display: flex;
+}
+
+.resultText {
+    margin-top: 30px;
+    font-size: 48px;
+
+    & div {
+        margin-top: 20px;
+    }
+
+
+    @media (max-width: 850px) {
+        font-size: 32px;
+    }
+}
+
+.resultButton {
+    display: block;
+    background-color: transparent;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid green;
+    color: white;
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.66);
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    } 
 }
 
 .dragArea {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 500px;
-    background: rgba(60, 60, 60, 0.66);
+    padding-right: 20px;
+    padding-left: 20px;
+    max-width: 450px;
+    height: 200px;
+    border-radius: 11px;
+    border: 2px solid #42A604;
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.66);
 }

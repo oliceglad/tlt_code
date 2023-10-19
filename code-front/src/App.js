@@ -1,16 +1,17 @@
-import logo from './logo.svg';
 import './App.scss';
-import {Provider}  from 'react-redux';
+import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { UploadFileContainer } from './Components/UploadFile/UploadFile';
-import { ShowDataContainer } from './Components/ShowData/ShowData';
+import { Header } from './Components/Header/Header';
 
 function App() {
   return (
     <Provider store={store} >
       <div className="App">
-        <UploadFileContainer />
-        <ShowDataContainer />
+        <Header />
+        <div className='container' >
+          <UploadFileContainer />
+        </div>
       </div>
     </Provider>
   );

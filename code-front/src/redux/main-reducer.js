@@ -1,19 +1,17 @@
 import { mainAPI } from '../api/api';
 
 const POST_DATA = 'POST_DATA'
-const SET_DATA = 'SET_DATA'
 
 const initialState = {
-    data: {},
-    form: {},
+    data: {
+        result: 0
+    },
 }
 
 export const mainReducer = (state = initialState, action) => {
     switch (action.type){
         case POST_DATA:
             return {...state, data: action.data}
-        case SET_DATA:
-            return {...state, form: action.form}
         
         default: 
             return state
@@ -22,7 +20,6 @@ export const mainReducer = (state = initialState, action) => {
 
 
 const postData = (postObj) => ({ type: POST_DATA, postObj})
-const setData = (setObj) => ({type: SET_DATA, setObj})
 
 export const postDataFile = (fileObj) => async dispatch => {
     try{
@@ -34,8 +31,4 @@ export const postDataFile = (fileObj) => async dispatch => {
     } catch(e) {
         console.log(e)
     }
-}
-
-export const setDataFile = (fileObj) => dispatch => {
-    dispatch(setData(fileObj))
 }
