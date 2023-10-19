@@ -7,6 +7,7 @@ import { postDataFile } from "../../redux/main-reducer";
 const UploadFile = ({ data, postDataFile }) => {
     const [drag, setDrag] = useState(false)
     const [files, setFiles] = useState([])
+    const [formData, setFormData] = useState(new FormData())
 
     const dragStartHandler = (e) => {
         e.preventDefault()
@@ -22,21 +23,23 @@ const UploadFile = ({ data, postDataFile }) => {
     const onDropHandler = (e) => {
         e.preventDefault()
         let filesMap = [...e.dataTransfer.files]
-        if (filesMap[0].name.indexOf('.JPG') !== -1 || filesMap[0].name.indexOf('.MP4') !== -1) {
+        if (filesMap[0].name.toLowerCase().indexOf('.jpg') !== -1 || filesMap[0].name.toLowerCase().indexOf('.mp4') !== -1 || filesMap[0].name.toLowerCase().indexOf('.png') !== -1) {
             setFiles(filesMap)
             const formData = new FormData()
             formData.append('file', files[0])
-            console.log(formData)
+            setFormData(formData)
         } else {
             alert('Загрузить можно только видео или фото')
         }
         setDrag(false)
     }
 
-    const onClickHandler = (e) => {
-        return
+    const onClickHandler = () => {
+        postDataFile(formData)
+        console.log(formData)
     }
 
+    console.log(data)
 
     return (
         <div className={s.uploadFile}>
@@ -63,7 +66,7 @@ const UploadFile = ({ data, postDataFile }) => {
                         : 'Файл не загружен'
                     }
                 </div>
-                <button className={s.resultButton} disabled={files.length > 0 ? false : true}>
+                <button className={s.resultButton} disabled={files.length > 0 ? false : true} onClick={() => onClickHandler()}>
                     Рассчитать
                 </button>
             </div>
@@ -71,7 +74,7 @@ const UploadFile = ({ data, postDataFile }) => {
 
             <div className={s.resultText}>
                 Объем щебня:
-                <div> <b style={{ color: 'green' }}>[</b>{data.result} см3<b style={{ color: 'green' }}>]</b></div>
+                <div> <b style={{ color: 'green' }}>[</b>{data} см3<b style={{ color: 'green' }}>]</b></div>
             </div>
         </div>
     )

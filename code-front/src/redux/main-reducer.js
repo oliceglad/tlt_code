@@ -3,21 +3,18 @@ import { mainAPI } from '../api/api';
 const POST_DATA = 'POST_DATA'
 
 const initialState = {
-    data: {
-        result: 0
-    },
+    data: 0
 }
 
 export const mainReducer = (state = initialState, action) => {
     switch (action.type){
         case POST_DATA:
-            return {...state, data: action.data}
+            return {...state, data: action.postObj}
         
         default: 
             return state
     }
 }
-
 
 const postData = (postObj) => ({ type: POST_DATA, postObj})
 
