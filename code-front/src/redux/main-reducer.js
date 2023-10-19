@@ -26,8 +26,6 @@ export const postDataFile = (fileObj) => async dispatch => {
         if (response.status === 200) {
             dispatch(postData(response.data.data))
             console.log(response.data.data)
-        } else {
-            dispatch(toggleIsFetching(false))
         }
     } catch(e) {
         console.log(e)

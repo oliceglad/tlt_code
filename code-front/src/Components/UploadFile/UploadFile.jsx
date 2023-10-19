@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import s from './upload.module.scss'
 import { connect } from 'react-redux';
-import { postDataFile } from "../redux/main-reducer";
+import { postDataFile } from "../../redux/main-reducer";
 
 
 const UploadFile = ({postDataFile, data}) => {
@@ -23,8 +23,6 @@ const UploadFile = ({postDataFile, data}) => {
         let files = [...e.dataTransfer.files]
         const formData = new FormData()
         formData.append('file', files[0])
-
-        
         postDataFile(formData)
         setDrag(false)
     }
