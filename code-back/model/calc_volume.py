@@ -1,12 +1,12 @@
 import math
 
-def calc_formula(length_one, length_two, width):
-    height = width * 0.5
-    return (1/3 * math.pi * ( width / 2 ) ** 2 * height + 1/2 * width * (length_two - length_one) * height) / 1000000
+def calc_formula(length_three, length_two):
+    height = length_three * 0.76
+    return (1/3 * math.pi * ( length_three / 2 ) ** 2 * height + 1/2 * length_three * (length_two - length_three) * height) / 1000000
 
 class CalcVolume:
     @staticmethod
     def calc_volume_stone(form):
-        return calc_formula(300,300,300)
+        return calc_formula(300, 500)
 
 print(CalcVolume.calc_volume_stone({}))
