@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import s from './upload.module.scss'
 import { connect } from 'react-redux';
-import { postDataFile } from "../../redux/main-reducer";
+import { setDataFile, postDataFile } from "../../redux/main-reducer";
 
 
-const UploadFile = ({postDataFile, data}) => {
+const UploadFile = ({form , setDataFile, postDataFile}) => {
     const [drag, setDrag] = useState(false)
+    const [files, setFiles] = useState([])
 
     const dragStartHandler = (e) => {
         e.preventDefault()
@@ -20,11 +21,17 @@ const UploadFile = ({postDataFile, data}) => {
 
     const onDropHandler = (e) => {
         e.preventDefault()
-        let files = [...e.dataTransfer.files]
+        setFiles([...e.dataTransfer.files])
         const formData = new FormData()
         formData.append('file', files[0])
-        postDataFile(formData)
+        console.log(formData)
+        setDataFile({'file': files[0]})
+        console.log(form)
         setDrag(false)
+    }
+
+    const onClickHandler = (e) => {
+        return 
     }
 
 
@@ -40,6 +47,7 @@ const UploadFile = ({postDataFile, data}) => {
                     onDrop={e => onDropHandler(e)}
                 >Отпустите файлы, чтобы загрузить их</div>
                 : <div
+                    className={s.dragArea}
                     onDragStart={e => dragStartHandler(e)}
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
@@ -49,9 +57,8 @@ const UploadFile = ({postDataFile, data}) => {
     )
 }
 
-
 const mapStateToProps = (state) => ({
-    data: state.main.data
+    form: state.main.form
 })
 
-export const UploadFileContainer = connect(mapStateToProps, { postDataFile })(UploadFile)
+export const UploadFileContainer = connect(mapStateToProps, { setDataFile, postDataFile })(UploadFile)
