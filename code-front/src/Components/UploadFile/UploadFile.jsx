@@ -67,7 +67,7 @@ const UploadFile = ({ data, postDataFile }) => {
 
             <div className={s.resultText}>
                 Объем щебня:
-                <div> <b style={{ color: 'green' }}>[</b>{data} см3<b style={{ color: 'green' }}>]</b></div>
+                <div> <b style={{ color: 'green' }}>[</b>{data} м3<b style={{ color: 'green' }}>]</b></div>
             </div>
         </div>
     )

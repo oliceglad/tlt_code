@@ -8,10 +8,9 @@ import json
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-get_calc = CalcVolume.calc_volume_stone({})
+get_calc = CalcVolume.calc_volume_stone
 class GetFile(Resource):
     def post(self):
-        print(dict(request.files)['file'].filename)
-        return {'data': get_calc}
+        return {'data': get_calc(dict(request.files)['file'].filename)}
 
 api.add_resource(GetFile, '/file')

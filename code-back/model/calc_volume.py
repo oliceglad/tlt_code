@@ -80,4 +80,7 @@ class CalcVolume:
         # video_capture.release()
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
-        return calc_formula(300, 500)
+        if 'большой' in form.lower():
+            return calc_formula(3*150, 1200)
+        else:
+            return calc_formula(3*150, 300)
