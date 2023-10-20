@@ -2,7 +2,7 @@ import math
 
 def calc_formula(length_three, length_two):
     height = length_three * 0.76
-    return (1/3 * math.pi * ( length_three / 2 ) ** 2 * height + 1/2 * length_three * (length_two - length_three) * height) / 1000000
+    return round((1/3 * math.pi * ( length_three / 2 ) ** 2 * height + 1/2 * length_three * (length_two - length_three) * height) / 1000000, 2)
 
 class CalcVolume:
     @staticmethod
